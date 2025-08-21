@@ -21,13 +21,14 @@ public class ToutiaoImpl implements ToutiaoService {
     String maintext = "";
     String title = "";
 
-    private WebDriver driver;
-
-    public void setUp() {
+    public void setUp(WebDriver driver) {
         // 设置WebDriver路径
         System.setProperty("webdriver.chrome.driver", "D:\\Drivers\\chromedriver-win64\\chromedriver.exe");
 
         ChromeOptions options = new ChromeOptions();
+        Proxy proxy = new Proxy();
+        proxy.setSocksProxy("10c8cee.b5.gladns.com:2377"); // 替换为您的代理 IP 和端口
+        options.setProxy(proxy);
         options.addArguments("--disable-extensions");  // 禁用浏览器扩展。
         options.addArguments("--headless");  // 启用无头模式（不显示浏览器界面）
         options.addArguments("window-size=1920x3000");    // 指定浏览器分辨率
@@ -50,11 +51,8 @@ public class ToutiaoImpl implements ToutiaoService {
 
     @Override
     public Info ExtractToutiao(String url) throws IOException {
-
-        // 设置 WebDriver（假设使用 ChromeDriver）
         WebDriver driver = new ChromeDriver();
-        Proxy proxy = new Proxy();
-        proxy.setSocksProxy("10c8cee.b5.gladns.com:2377"); // 替换为您的代理 IP 和端口
+        setUp(driver);
         try {
             // 打开目标页面
             driver.get(url);

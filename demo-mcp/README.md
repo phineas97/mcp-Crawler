@@ -30,3 +30,16 @@ spring.ai.mcp.client.sse.connections.playwright.url=http://localhost:8931/sse
 
 LLM在处理提示时会识别到需要从 URL 获取内容的意图，并调用工具完成工作。
 
+
+
+# Spring AI 框架设计：
+
+McpSyncClient：这是最底层的客户端，它负责与高德的 mcp.amap.com 服务进行实际的 HTTP/SSE 通信。它有一个方法叫 listTools()，可以动态地从服务中获取所有可用的工具。
+
+SyncMcpToolCallbackProvider：这个类是中间层，它实现了 ToolCallbackProvider 接口。它的作用就是作为 ChatClient 和 McpSyncClient 之间的桥梁。
+
+它知道如何调用 McpSyncClient.listTools() 来获取工具列表。
+
+它也知道如何根据 ChatClient 的请求，调用 McpSyncClient 的 callTool() 方法来执行具体的工具。
+
+ChatClient：这是最高层的聊天接口。它不需要直接知道所有工具的细节，它只需要一个“工具提供者”（ToolCallbackProvider）。

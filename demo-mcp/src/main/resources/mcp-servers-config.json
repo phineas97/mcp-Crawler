@@ -1,10 +1,7 @@
 {
   "mcpServers": {
-    "fetch": {
-      "command": "uvx",
-      "args": [
-        "mcp-server-fetch","--ignore-robots-txt"
-      ]
+    "amap-amap-sse": {
+      "url": "https://mcp.amap.com/sse?key=0b086efad6e4d1044e64564f9f9600b5"
     }
   }
 }
