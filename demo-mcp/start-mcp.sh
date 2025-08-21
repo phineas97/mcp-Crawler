@@ -1,6 +1,7 @@
 #!/bin/bash
 
-MCP_COMMAND="npx @playwright/mcp@latest --port 8931"
+MCP_COMMAND="npx @playwright/mc
+p@latest --port 8931"
 
 while true; do
   echo "Starting MCP..."
